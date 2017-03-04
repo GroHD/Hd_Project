@@ -66,11 +66,13 @@ if __name__ == '__main__':
     t2.join()#阻塞线程
 '''
 #继承式
-
+lock = threading.Lock() #定义一个锁
 class MyThread(threading.Thread):
     def __init__(self,num):
         super(MyThread,self).__init__()
+        lock.acquire() #获取一把锁
         self.num = num
+        lock.release() #释放锁
     def run(self):
         print('running Thread ..%s'%(self.num))
         time.sleep(3)
@@ -96,3 +98,28 @@ if __name__ == '__main__':
         i.join()
 
 
+r'''
+    start 启动线程
+    join 等待线程结束,这个是阻塞线程
+    setDaemon(True Or False)  守护线程,当守护线程退出的时候,其它线程也会结束运行
+'''
+
+'''
+GIL和多线程锁:
+    一个进程下可以启动多个线程,多个线程共享父进程的内存空间,也就是意味着每个线程都可以同时访问一份数据
+    GIL:
+        GIL就是一个互斥锁,在线程中一次只允许一个线程对变量进行修改。
+            GIL并不是Python的特性,而是实现Python解析器是所引入的一个语法标准。
+        例:
+        lock = threading.Lock() #进行设置一个锁
+        class MyThread(threading.Thread):
+            def Run():
+                lock.acquire()　＃加锁
+                    num+=1
+                lock.release() # 解锁
+
+'''
+
+'''
+
+'''
