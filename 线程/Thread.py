@@ -64,7 +64,7 @@ if __name__ == '__main__':
     t2.start()
     t1.join() #阻塞线程
     t2.join()#阻塞线程
-'''
+
 #继承式
 lock = threading.Lock() #定义一个锁
 class MyThread(threading.Thread):
@@ -78,14 +78,15 @@ class MyThread(threading.Thread):
         time.sleep(3)
 
 if __name__ == '__main__':
-    '''
+'''
+'''
     t1 = MyThread(1)
     t2 = MyThread(2)
     t1.start()
     t2.start()
     t1.join()
     t2.join()
-    '''
+
     t_list=[]
     for i in range(10):
         t = MyThread(i) #创建实例对象
@@ -96,7 +97,7 @@ if __name__ == '__main__':
     #设置所有的线程阻塞
     for i in t_list:
         i.join()
-
+   '''
 
 r'''
     start 启动线程
@@ -122,6 +123,83 @@ GIL和多线程锁:
 
 r'''
     递归锁和信号量：
-        递归锁就是在一把大锁中海包含子锁
+        递归锁就是在一把大锁中还包含子锁
+    递归锁：
+        lock = threading.RLock() #进行设置一个锁
+            class MyThread(threading.Thread):
+                def Run():
+                    lock.acquire()　＃加锁
+                        num+=1
+                    lock.release() # 解锁
+    信号量(Semaphore):
+        互斥锁同时允许一个人线程进行更改数据,而Semaphore同时允许一定数量的线程更改数据
+
+    #例:
+import threading,time
+def run(n):
+    semaphore.acquire()
+    time.sleep(1)
+    print("Run the threadL%s\n"%(n))
+    semaphore.release()
+
+if __name__ == '__main__':
+    num =0
+    semaphore = threading.BoundedSemaphore(3) #最多允许3个线程同时运行
+    for i  in range(20):
+        t = threading.Thread(target=run,args=(i,))
+        t.start()
 
 '''
+
+r'''
+线程间同步和交互
+     Events是一个线程之间进行数据交换的对象,一般是一个线程判断另外一个线程是否执行完毕
+    event  = threading.Event()
+    event.wait() #标签如果没设置就一直等待
+    event.set()  设置标签
+    event.isSet()  判断是否设置标签,如果设置了返回true
+    event.clear() 清空设置标签
+
+
+import threading,time
+import random
+
+def light():
+    if not event.isSet():
+        event.set() #设置标签
+    count = 0
+    while True:
+        if count <10:
+            print("绿灯....")
+        elif count < 13:
+            print("黄灯....")
+        elif count < 20:
+                if event.isSet():
+                    event.clear()
+                print("红灯....")
+
+        else:
+            count = 0
+            event.set()#打开绿灯
+        time.sleep(1)
+        count+=1
+
+def car(n):
+    while True:
+        if event.isSet():
+            time.sleep(2)
+            print("【%s】号车开始同行..."%(n))
+        else:
+            print("【%s】号车等待红灯...."%(n))
+            event.wait()
+
+
+if __name__ == '__main__':
+    event = threading.Event()
+    Light = threading.Thread(target=light)
+    Light.start()
+    for i in range(3):
+        t = threading.Thread(target=car,args=(i,))
+        t.start()
+'''
+
