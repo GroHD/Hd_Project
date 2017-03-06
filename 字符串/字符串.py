@@ -265,3 +265,13 @@ print(template.format(name='hd',age=22,gender='man'))
 template ='name Is {name} age is {0} gender is {1}'
 print(template.format(22,'man',name='hd'))
 
+r'''
+    文件中打包二进制数据的存储和解析:
+        Python的标准库中包含一个能够在这一范围起作用的工具：
+            struct模块能构造并解析打包二进制数据,它能够把文件中的字符串解读为二进制数据。
+            要生成一个打包的二进制数据文件,用'wb'模式打开它,并将一个格式化字符串和几个Python对象传给struct。这里用的格式化字符串是指一个4字节整数，一个包含4个字符的字符串以及一个2位数的数据包，所有这些都按照高位在前的形式。
+'''
+import struct
+
+with open('data.bin','wb') as file:
+    data = struct.pack()
