@@ -202,4 +202,52 @@ if __name__ == '__main__':
         t = threading.Thread(target=car,args=(i,))
         t.start()
 '''
+r'''
+    队列(queu):
+        在多个线程之间进行数据交换的时候使用队列
+        queue.Queue(naxsuze=0) 先进先出
+        queue.LifoQueue(maxsize=0) 先进后出
+        queue.PriorityQueue(maxsize=0)#存储数据时可设置优先级的队列
+    queue方法:
+        queue.get()  阻塞的方法
+        queue.get_nowait() #非阻塞，如果为空则报 queue.Empty 异常
 
+        queue.put()  阻塞的方法
+        queuq.put_nowait() #非阻塞,如果满的话就报queue.Full 异常
+
+        queue.qsize()  拿到queue的长度
+        queue.empty()  队列是否为空
+        queue.full()  队列是否满了
+        queue.put(item.block=True,timeout=None) #放入数据,默认是block的，当queue满的时候put就会进行阻塞,Timeout是阻塞情况下多长时间后就进行报异常
+        queue.put_nowait(item)  非阻塞,满了就抛异常
+
+        queue.get(block=True,timeout=None) #取出数据,默认是block的,当queue满的时候get会进行阻塞等待,如果超出timeout时间则报错,默认是一直阻塞中
+        queue.get_nowait() #拿出数据
+
+        queue.task_done() # 一个queue通知另外一个queue某个任务已完成。
+
+'''
+#例
+import queue
+
+#q = queue.Queue(maxsize=3)#定义一个queue,队列的大小是3,先入先出,下面取出的是[1,2,3]
+q = queue.LifoQueue(maxsize=3) #先入后出  下面取出的是123
+q1 = queue.PriorityQueue(maxsize=3) #自定义队列,数字越小出的越靠前出来
+#q.get(timeout=3) #如果不存在抛出 queue Empty 异常
+q.put([1,2,3]) #向队列中添加一个数据
+
+q.put(('A','B','C')) #向队列中添加一个数据
+data = q.get_nowait()#取出数据
+print("先入后出：",data)
+q.put('123') #向队列中添加一个数据
+q1.put((6,[1,2,3])) #向自定义队列添加数据
+q1.put((5,('A','B','C')))
+q1.put((3,'123'))
+data = q1.get()#取出数据
+print("自定义队列：",data)
+
+b = q.full()
+print("Full",b) #判断队列是否已满
+
+coun = q.qsize() #拿到队列的长度
+print("Count:",coun)
