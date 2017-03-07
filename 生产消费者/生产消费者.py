@@ -35,3 +35,7 @@ if __name__ == '__main__':
     g1.join()
     p1.join()
 
+'''
+    一般生产消费者都是由多线程和queue组成  主要是使用queue的task_done 方法,来通知另外一个方法任务完成了
+
+'''
