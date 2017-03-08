@@ -161,6 +161,7 @@ r'''
     event.clear() 清空设置标签
 
 
+
 import threading,time
 import random
 
@@ -223,7 +224,6 @@ r'''
 
         queue.get(block=True,timeout=None) #取出数据,默认是block的,当queue满的时候get会进行阻塞等待,如果超出timeout时间则报错,默认是一直阻塞中
         queue.get_nowait() #拿出数据
-
         queue.task_done() # 一个queue通知另外一个queue某个任务已完成。
 
 '''
