@@ -20,7 +20,7 @@ import socketserver
 class MyTCPHandler(socketserver.BaseRequestHandler):
     #在下面处理客户端访问的数据，这个必须这样
     def handle(self):
-        #难道客户端发送过来的数据
+        #拿到客户端发送过来的数据
         data = self.request.recv(1024)
         print("Client Says:",str(data,'utf8')) #处理编码
         self.request.send(bytes("收到！收到！！！",'utf8'))
