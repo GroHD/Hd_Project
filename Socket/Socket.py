@@ -9,6 +9,7 @@ Socket:
 '''
 ip_port = ('127.0.0.1',8811)
 sk = socket.socket()
+sk.setblocking(False)# 设置不Socket不阻塞,现在不论send是否发送成功都不会阻塞,recv无论是否有数据也不会阻塞,True或False
 sk.bind(ip_port)
 sk.listen(5)
 
