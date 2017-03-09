@@ -31,7 +31,7 @@ r'''
                         def __init__(self,num):
                             threading.Thread.__init__()
                             #也可以按下面的新方法来继承父类的初始化方法
-                            #super(MyThread,self).__init__(self)
+                            #super(MyThread,self).__init__()
                             self.num = num
 
                         def run(self):#每个线程都要运行这个函数
