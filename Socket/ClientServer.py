@@ -7,6 +7,7 @@ import socket
 ip_point=('127.0.0.1',8813) #连接到socket多线程
 #创建实例对象
 sk = socket.socket()
+sk.setblocking(False)# 设置不Socket不阻塞,现在不论send是否发送成功都不会阻塞,recv无论是否有数据也不会阻塞,True或False
 #设置访问的服务器ip地址
 sk.connect(ip_point)
 #发送数据
