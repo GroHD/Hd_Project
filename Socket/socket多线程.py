@@ -26,7 +26,11 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         self.request.send(bytes("收到！收到！！！",'utf8'))
         client_Address = self.client_address #拿到客户端访问地址
         print("访问地址:",client_Address)
+    def setup(self):
+        print("进入handle 之前调用")
 
+    def finish(self):
+        print("执行完handle 的时候调用")
 
 if __name__ == "__main__":
     HOST,PORT = 'localhost',8813
