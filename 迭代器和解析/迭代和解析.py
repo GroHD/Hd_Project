@@ -64,6 +64,13 @@ r'''
 '''
 r'''
     其它迭代器:
+    Map迭代器:
+        def funName(*obj):
+        return obj[0]+1
+        
+        L =[1,2,3,4,5,6]
+        L1 = map(funName,L)
+        print(list(L1))
         
 '''
 
