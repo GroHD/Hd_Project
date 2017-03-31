@@ -35,7 +35,7 @@ r'''
 #基本操作
 import  redis
 
-r = redis.Redis(host='192.168.0.11') #连接redis 服务器
+r = redis.Redis(host='192.168.0.5') #连接redis 服务器 db = num  是链接那个库，默认是0
 #print(r.get('name'))
 #all_keys = r.keys() #拿到所有的key
 r.set("age","男")#第一个参数是key  第二个参数是value  第三个参数是过期时间,如果没有第三个参数则一直保存到服务器内存中
@@ -284,8 +284,31 @@ r'''
             获取name对应的有序集合众分数在[min~max]之间的元素
         r.zincrby(name,value,amount)
             自增name对应的有序集合的value对应的分数
-        
+        r.zrangebyscore(name,min,max)
+            获取name对应的有序集合value 的分数在[min~max]之间
             
-            
+    其他:
+        delete(*names)
+            根据names删除redis中的任意类型数据
+        exists(name)
+            检测redis的name是否存在
+        keys(parttern="*")
+            根据模型获取redis的name
+            参数:
+                KEYS *  匹配数据库中的key
+                KEYS h?llo  匹配 hello ,hallo 和hxllo 等
+                KEYS h*llo  匹配hello 和heeeeeeeello 等
+                KEYS h[ae]llo 匹配hallo 和hello 不匹配其他
+        expire(name,time)
+                    为某个name设置超时时间
+        rename(src,dst)
+            对src进行重命名
+        move(name,db)
+            将某个值移动到指定的db下,默认是在0库里
+        randomkey()
+            随机获取一个redis的name(不删除)
+        type(name)
+            获取name对应值得类型
 '''
+
 
