@@ -114,5 +114,178 @@ r'''
     例:
         setbit('id',1,1) #把id中的value值的二进制 的第1位修改为1
         
+        
+        getbit('id',1) #获取id所属的value里的值得第一个
+        
+        
+    delete('id') #删除id
+    
+    
+    bitcount(name,start=None,end=None) 
+        获取name中对应的二进制表中的1的个数:
+        参数:
+            name  redis name
+            start  位起始位置
+            end  位结束为止
+            
+    strlen(name) 
+        返回name对应值的字节长度(一个汉子3个字节)
+        
+    incr(name,amouunt=1)
+     自增name对应的值,当name不存在时,则创建name=amount,否则,自增。
+     
+     参数:
+        name Redis的name
+        amount,自增数（必须是整数）
+        
+    r.incr('cont',1)
+    r.incr('cont',1)
+    r.incr('cont',1)
+    r.get('count') #获取到的是7
+    
+    decr(name,amount=1)
+        自减name对应的值,当name不存在时,则创建name=amount,否则自减
+        参数:
+            name,Redis的name
+            amount,自减数(整数)
+            
+    append(key,value)
+        在Redis的name对应的值后面追加内容
+        参数:
+            key  redis的name
+            value  要追加的字符串内容
+            
+    
+    Hash操作:
+        hset(name,key,value)
+            name对应的hash中设置一个键值对(不存在则创建,否则修改)
+            参数:
+                name redis的name
+                key name对应的hash中的key
+                value name对应的hash中的value
+                
+        r.hset('person','name',"hd") #添加
+        
+        hmset(name,*keys);
+            name 对应的hash中设置一个字典:
+                name redis中的name
+                keys 存入的字典
+                
+        r.hmset('Person',{"name":"hd","age":"29","sex":"nan"})
+        
+        r.hget("person","name") #拿到字典中的name值
+        r.hgetall('person')  获取全部的值
+        
+        r.hlen('name')
+            获取name对应的hash中的键值对的个数
+        r.hkeys(name)
+            获取name对应的hash中所有的key的值
+            
+        r.hvalue(name)
+            获取name对应的hash中所有的value的值
+            
+        r.hexiste(name,key)
+            检查name对应的hash是否存在当前传入的key
+            
+        r.hdel(name,*keys)
+            将name对应的hash中制定的key的键值对删除
+            
+        r.hscan(name,cursor=0,match=None,count=None)
+        增量式迭代获取数据,对于数据量大的数据非常有用,hscan可以实现分片的获取数据,并非一次将数据加载到内存中
+        参数:
+            name  redis的name
+            cursor 游标(给予游标分批获取数据)
+            match,匹配指定key,默认None 表示匹配所有key
+            count 每次分片最少获取个数,默认None表示采用Redis的默认分片个数
+            
+        例:
+            cursor1,data1 = r.hscan('xx',cursor=0,match=None,ccount=None)
+            cursor2,data1 = r.hscan('xx',cursor=cursor1,match=None,ccount=None)
+            ......
+            
+    List操作:
+        redis中的List在内存中按照一个name对应一个List来存储的：
+            
+        lpush(name,values)
+            在name对应的list中添加元素,每个新的元素都添加到列表的最左边
+            如:
+                r.lpush('poo',11,22,33,44)
+                保存为:
+                    44,33,22,11
+                扩展：
+                    r.rpush(name,values) 表示从右向左的操作
+        lrange(name,start,end)
+            根据name获取redis里的列表
+            参数:
+                name redis里的name
+                start 开始的下标0
+                end  结束的下标-1
+                
+        llen(name)
+            name对应的list元素的个数
+        linsert(name,where,refvalue,value)
+            在name对应的列表的某一个值前或后插入一个心智
+            参数:
+                name redis的name
+                where "BEFORD"或"AFTER"
+                refvalue 标杆值,既:在它前或后插入数据  这个是对应的值
+                value:要插入的值
+                
+        r.lset(name,index,value)
+            在name对应的列表的index位置设置成value值
+            参数:
+                name redis的name
+                index  列表对应的下标
+                value 要插入的值
+                
+                
+    Set才做,Set集合就是不允许重复的列表
+    
+        r.sadd(name,value)
+            name对应的集合中添加元素value
+        r.sscard(name)
+            获取name对应的集合中元素个数
+        r.sscan(name)
+            获取name对应的集合元素
+        r.sdiff(name1,name2)
+            集合对比两个存在的列表,返回两个列表中都存在的元素
+        r.sdiffstore(dest,keys,*args)
+            获取第一个name对应的集合中且不再其他name对应的集合中,再将其新加入到dest对应的列表中
+                r.sdiffstore('s3','s1','s2')
+                把s1和s2的差集存入到s3
+        r.sismember(name,value)
+            value是否存在name集合中
+        r.smembers('s1')
+            获取s1中所有的元素
+        
+        r.move(src,dse,value) 返回True, 
+            将value从src移动到dse集合中,插入到开头
+        r.pop(name)
+            从集合的右侧(尾部)移除一个成员,并将其返回
+        r.srandmember(name,numbers)
+            从name中随机获取numbers个元素
+        r.srem(name,values)
+            在name对应的集合中删除某些值
+            
+        r.sunion(keys,*args)
+            获取一个或多个name的合集
+        r.sunionstore(dest,keys,*arhs)
+            获取一个或多个name对应的集合的并集,并将结果保存到dest对应的集合中
+          
+    有序集合:
+        r.zadd(name,*args)
+            例:
+                r.zadd('name','hd',4,'age',7) 4和7是 对元素进行排序
+                或
+                r.zadd('name',"hd"=4,"age"=7)
+        r.zcard(name)
+            获取name对应的有序集合元素的个数
+        r.zcount(name,min,max)
+            获取name对应的有序集合众分数在[min~max]之间的元素
+        r.zincrby(name,value,amount)
+            自增name对应的有序集合的value对应的分数
+        
+            
+            
 '''
 
