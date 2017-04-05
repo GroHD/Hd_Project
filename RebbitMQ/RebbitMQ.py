@@ -85,9 +85,56 @@ channel_le.basic_qos(prefetch_count=1) #定义同时只取一个任务,那么久
 
 
 r'''
-消息发布订阅:
+消息发布和订阅:
+'''
+r'''
+消息发布:
+'''
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel= connection.channel()
+# 因为是广播所以不需要定义queue的名字
+channel.exchange_declare(exchange='logs',
+                         type='faout'
+                         )
+
+message = 'Hello!Word'
+
+channel.basic_publish(exchange='logs',
+                      routing_key='',
+                      boyd=message
+                     )
+print("[x] Send %r"%message)
+connection.close() #关闭发送消息
+
+
+r'''消息接受端'''
+connection  = pika.BlockingConnection(pika.ConnectionParameters('localhos'))
+channel = connection.channel()
+channel.exchange_declare(exchange='logs',type='faout')
+result = channel.queue_declare(exclusive=True) #不指定queue名字,reabbit会随机分配名字,当接收完消息之后就删除该名字
+queue_name = result.method.queue
+channel.queue_bind(exchange='logs',queue=queue_name) #queue绑定到exchange上开始接受消息
+
+print("等待接受数据....")
+
+def callback(ch,method,perperties,body):
+    print("接受到的消息是:%s"%body)
+    return
+
+channel.basic_consume(callback,queu=queue_name,no_ack=True)
+
+channel.start_consuming()
+
+r'''
+    type类型:
+        faout  任何消息
+        direct：
+                根据routing_key 来分发队列,然后再接收端可以根据routing_key 进行取出对应的数据，比如在服务端放入routing_key 里方法Info里,那么在消息接收端里可以从routing_key里的info里 取出数据
 
 '''
+
+
+
 
 
 
