@@ -113,7 +113,8 @@ channel = connection.channel()
 channel.exchange_declare(exchange='logs',type='faout')
 result = channel.queue_declare(exclusive=True) #不指定queue名字,reabbit会随机分配名字,当接收完消息之后就删除该名字
 queue_name = result.method.queue
-channel.queue_bind(exchange='logs',queue=queue_name) #queue绑定到exchange上开始接受消息
+channel.queue_bind(exchange='logs',routing_key='',queue=queue_name) #queue绑定到exchange上开始接受消息,如果type是direct,那么可以循环绑定 routing_key
+
 
 print("等待接受数据....")
 
@@ -122,6 +123,8 @@ def callback(ch,method,perperties,body):
     return
 
 channel.basic_consume(callback,queu=queue_name,no_ack=True)
+
+
 
 channel.start_consuming()
 
