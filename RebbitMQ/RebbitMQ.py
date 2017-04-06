@@ -4,16 +4,39 @@
    Name:HD
 '''
 r'''
+
     RabbitMQ 是一个在AMQP基础上完整的，可复用的企业消息系统。
     MQ全程为Message Queue消息队列,是一种应用程序对应程序的通信方法。应用程序通过读写出入队列的消息来通信，而无须专用连接来裂解他们。消息传递指的是程序之间通过在消息中发送数据进行通信，而不是通过直接调用彼此来通信,直接调用通常是用于诸如远程过程调用的技术。
     
     RabibitMQ安装:
+        主要的页面:
+            http://www.cnblogs.com/astroboyx/archive/2012/04/09/2739902.html
         安装配置epel源:
              wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
         安装erlang:
-            wget http://erlang.org/download/otp_src_19.3.tar.gz 
+            wget http://erlang.1.org/download/otp_src_R16B03.tar.gz
+                1.然后解压下载的gz包 tar  -zxvf  *.tar.gz
+                2.cd 进入解压出来的文件夹
+                3.执行./configure --prefix=/opt/erlang  就会开始编译安装  会编译到 /opt/erlang 下 如果不报错就执行make 和 make install
+                   报错：
+                        configure: error: No curses library functions found
+                        configure: error: /bin/sh '/root/otp/erts/configure' failed for erts
+                    执行:
+                        sudo apt-get install libncurses5-dev 
+                    然后再执行./configure 
+                4.
         安装RebibitMQ
-            yum -y install rabbitmq-server
+           wget http://www.rabbitmq.com/releases/rabbitmq-server/
+            解压:
+                tar zxvf rabbitmq-server-generic-unix-2.7.1.tar.gz -C /opt
+            cd rabbitmq/sbin 
+                            ./rabbitmq-server -detached可以实现后台启动
+                            
+            修改/etc/profile，添加环境变量
+            #set rabbitmq environment
+            export PATH=$PATH:/opt/rabbitmq/sbi
+            source profile使得文件生效
+            cd /opt/rabbitmq/sbin  ./rabbitmqctl stop/start关闭/启动rabbitmq
             
         安装API:
             pip install pika #官方的
