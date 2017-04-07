@@ -14,23 +14,26 @@ r'''
         安装配置epel源:
              wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
         安装erlang:
-            wget http://erlang.1.org/download/otp_src_R16B03.tar.gz
+            wget http://erlang.org/download/otp_src_R16B03.tar.gz
                 1.然后解压下载的gz包 tar  -zxvf  *.tar.gz
                 2.cd 进入解压出来的文件夹
-                3.执行./configure --prefix=/opt/erlang  就会开始编译安装  会编译到 /opt/erlang 下 如果不报错就执行make 和 make install
+                3.执行./configure --prefix=/usr/local/erlang  就会开始编译安装  会编译到 /usr/local/erlang 下 如果不报错就执行make 和 make install
                    报错：
                         configure: error: No curses library functions found
                         configure: error: /bin/sh '/root/otp/erts/configure' failed for erts
                     执行:
                         sudo apt-get install libncurses5-dev 
-                    然后再执行./configure 
+                    然后再执行./configure
+
+                    编译完成以后，进入/opt/erlang，输入erl测试erlang是否安装成功。
+
                 4.
         安装RebibitMQ
            wget http://www.rabbitmq.com/releases/rabbitmq-server/
             解压:
                 tar zxvf rabbitmq-server-generic-unix-2.7.1.tar.gz -C /opt
             cd rabbitmq/sbin 
-                            ./rabbitmq-server -detached可以实现后台启动
+                        ./rabbitmq-server -detached可以实现后台启动
                             
             修改/etc/profile，添加环境变量
             #set rabbitmq environment
