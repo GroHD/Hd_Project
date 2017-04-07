@@ -163,6 +163,13 @@ r'''
 
 
 
-
+r'''链接远程失败:
+      添加一个用户
+      rabbitmqctl add_user rollen root
+      设置权限
+      rabbitmqctl set_user_tags rollen administrator
+      //开启可以远程连接
+      rabbitmqctl set_permissions -p / rollen ".*" ".*" ".*"
+'''
 
 
