@@ -80,7 +80,7 @@ channel.queue_declare('hello')
 def callback(ch,method,propertis,body):
     print("[x] Received%r"%body)
 
-channel.basic_publish(callback,queue='hello',no_ack=True)
+channel.basic_consume(callback,queue='hello',no_ack=True)
 '''
     参数：
         callback  回掉函数,收到小心后就调用这个函数
