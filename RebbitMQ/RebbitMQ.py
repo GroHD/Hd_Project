@@ -69,7 +69,9 @@ channel.queue_declare(queue='hello')
 channel.basic_publish(
                         exchange='',
                         routing_key='hello',
-                        body='Hello Word!')
+                        body='Hello Word!'
+                        
+                        )
 #参数:
 '''
     exchange:
@@ -94,7 +96,6 @@ channel.queue_declare('hello')
 #回掉函数
 def callback(ch,method,propertis,body):
     print("[x] Received%r"%body)
-
 channel.basic_consume(callback,queue='hello',no_ack=True)
 '''
     参数：
@@ -111,17 +112,22 @@ r'''
 r'''
 
 消息持久化:
-    在管道里声明queue队列名字的时候,如果家一个durable=True就是消息持久化,这个queue在定义的是定义为不是持久化或是持久化，那么是无法修改的，要不删掉,要么定义别的。
+    #队列持久化
+    在管道里声明queue队列名字的时候,如果个加一durable=True就是消息持久化,这个queue在定义的是定义为不是持久化或是持久化，那么是无法修改的，要不删掉,要么定义别的。
     在写消息持久化的时候必须接收端和发送端是一致的,需要消息持久化的话需要在客户端和服务端分别增加一些消息持久化代码
+  #消息持久化
+    服务器写把下面的代码写到basic_publish里:
+         properties=pika.BasicProperties(
+                            delivery_mode=2
+                        )
+    把下面的代码写到客户端的回掉函数里:
+        ch.basic_ack(delivery_tag= method.delivery_tag)
 '''
 
 r'''
 channel_le.basic_qos(prefetch_count=1) #定义同时只取一个任务,那么久不会进来多个数据  这个就是防止在不同配置服务器上出现处理消息不一致的情况。
 
 '''
-
-
-
 r'''
 消息发布和订阅:
 '''
@@ -139,8 +145,7 @@ message = 'Hello!Word'
 r'''
     Type参数:
     fanout
-    所有bind到此exchange的queue都可以接收消息
-    
+    所有bind到此exchange的queue都可以接收消息  
     direct
     通过routingKey和exchange决定的那个唯一的queue可以接收消息
     
@@ -154,7 +159,7 @@ r'''
 
 channel.basic_publish(exchange='logs',
                       routing_key='',
-                      boyd=message
+                      body=message
                      )
 print("[x] Send %r"%message)
 connection.close() #关闭发送消息
@@ -171,11 +176,11 @@ channel.queue_bind(exchange='logs',routing_key='',queue=queue_name) #queue绑定
 
 print("等待接受数据....")
 
-def callback(ch,method,perperties,body):
+def callbackMess(ch,method,perperties,body):
     print("接受到的消息是:%s"%body)
     return
 
-channel.basic_consume(callback,queu=queue_name,no_ack=True)
+channel.basic_consume(callbackMess,queue=queue_name,no_ack=True)
 
 
 
