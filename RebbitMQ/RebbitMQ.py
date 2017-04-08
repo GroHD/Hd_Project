@@ -55,7 +55,6 @@ r'''
                 sudo rabbitmqctl set_permissions -p / web_admin '.*''.*''.*'
         安装API:
             pip install pika #官方的
-            
 '''
  #发送数据端
 import pika
@@ -160,6 +159,14 @@ channel.basic_publish(exchange='logs',
                       routing_key='',
                       body=message
                      )
+
+#topic 发送消息
+channel.exchange_declare(exchange='topic_logs',type='topic') #自定义消息
+channel.basic_publish(
+                    exchange='topic_logs',
+                    routing_key='*.info', #消息类型,所有以.info结尾的消息都获取
+                    body=message
+)
 print("[x] Send %r"%message)
 connection.close() #关闭发送消息
 
@@ -167,7 +174,7 @@ connection.close() #关闭发送消息
 r'''消息接受端'''
 connection  = pika.BlockingConnection(pika.ConnectionParameters('localhos'))
 channel = connection.channel()
-channel.exchange_declare(exchange='logs',type='faout')
+channel.exchange_declare(exchange='logs',type='faout')  #type 写为topic 那么就可以接受自定义的消息
 result = channel.queue_declare(exclusive=True) #不指定queue名字,reabbit会随机分配名字,当接收完消息之后就删除该名字
 queue_name = result.method.queue
 channel.queue_bind(exchange='logs',routing_key='',queue=queue_name) #queue绑定到exchange上开始接受消息,如果type是direct,那么可以循环绑定 routing_key
