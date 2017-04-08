@@ -70,7 +70,7 @@ channel.basic_publish(
                         exchange='',
                         routing_key='hello',
                         body='Hello Word!'
-                        
+                        sssssss
                         )
 #参数:
 '''
