@@ -116,7 +116,9 @@ r'''
   #消息持久化
     服务器写把下面的代码写到basic_publish里:
          properties=pika.BasicProperties(
-                            delivery_mode=2
+                            delivery_mode=2,
+                            reply_to = callback_queue, #返回数据的时候调用那个queue
+                            correlation_id = corr_id #放到那个queue里
                         )
     把下面的代码写到客户端的回掉函数里:
         ch.basic_ack(delivery_tag= method.delivery_tag)
@@ -176,7 +178,7 @@ connection  = pika.BlockingConnection(pika.ConnectionParameters('localhos'))
 channel = connection.channel()
 channel.exchange_declare(exchange='logs',type='faout')  #type 写为topic 那么就可以接受自定义的消息
 result = channel.queue_declare(exclusive=True) #不指定queue名字,reabbit会随机分配名字,当接收完消息之后就删除该名字
-queue_name = result.method.queue
+queue_name = result.method.queue #拿到queue名字
 channel.queue_bind(exchange='logs',routing_key='',queue=queue_name) #queue绑定到exchange上开始接受消息,如果type是direct,那么可以循环绑定 routing_key
 
 
@@ -212,5 +214,13 @@ r'''链接远程失败:
       //开启可以远程连接
       rabbitmqctl set_permissions -p / rollen ".*" ".*" ".*"
 '''
+r'''
+RPC:
+   就是让rabbitMQ服务器执行从客户端发来的数据进行处理之后再返回给客户端消息，需要使用的就是
+  properties=pika.BasicProperties(
+                            reply_to = callback_queue, #返回数据的时候调用那个queue,这个是客户端给服务端发送接收的callbackqueue 是那个queue
+                            correlation_id = corr_id #放到那个queue里  corr_id 就是uuid随机生成的,用来确认消息
+                        )
 
 
+'''
