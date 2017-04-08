@@ -55,8 +55,7 @@ r'''
                 sudo rabbitmqctl set_permissions -p / web_admin '.*''.*''.*'
         安装API:
             pip install pika #官方的
-
-            水水水水水水水水水水水水水水水水水水水
+            sssssssssssssssssssss
             
 '''
  #发送数据端
