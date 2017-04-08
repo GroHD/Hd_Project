@@ -40,7 +40,19 @@ r'''
             export PATH=$PATH:/opt/rabbitmq/sbi
             source profile使得文件生效
             cd /opt/rabbitmq/sbin  ./rabbitmqctl stop/start关闭/启动rabbitmq
-            
+
+            添加用户:
+                sudo rabbitmqctl add_user web_admin  123456
+            删除用户:
+                sudo rabbitmqctl delete_user web_admin
+            查看用户:
+                sudo rabbitmqctl list_users
+            添加vhost:
+                sudo rabbitmqctl add_vhost vhost1
+            查看vhost:
+                sudo rabbitmqctl list_permissions -p /vhost1
+            给用户添加权限:
+                sudo rabbitmqctl set_permissions -p / web_admin '.*''.*''.*'
         安装API:
             pip install pika #官方的
             
