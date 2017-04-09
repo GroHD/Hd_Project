@@ -20,7 +20,7 @@ class GetClient(object):
 def CallBack(ch,method,properties,body):
     print("[x] Revce %s"%(body))
     print(properties.reply_to)
-    #向服务器回数据
+    #向客户端回数据
     ch.basic_publish(
                         exchange='',
                         routing_key=properties.reply_to,#回到那个随机队列里
