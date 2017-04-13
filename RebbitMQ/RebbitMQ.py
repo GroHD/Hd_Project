@@ -47,6 +47,8 @@ r'''
                 sudo rabbitmqctl delete_user web_admin
             查看用户:
                 sudo rabbitmqctl list_users
+            给用户分组
+             sudo ./rabbitmqctl set_user_tags web_admin administrator
             添加vhost:
                 sudo rabbitmqctl add_vhost vhost1
             查看vhost:
