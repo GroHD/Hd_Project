@@ -150,4 +150,27 @@ item = filter(lambda x : True if x and len(x.strip())>0 else False, ['test', Non
 for ite in item:
     print(ite)
 '''
+r'''
+    函数的作用域:
+        作用于就是命名空间。也就是说，在代码中变量名被赋值的位置决定了这个变量名能被访问到的范围。
+    global语句:
+        global语句是python中唯一看起来有些像申明语句的语句。但是它并不是一个类型或大小的申明，它是一个命名空间的声明。它告诉python函数打算生成一个或多个全局变量名。也就是说，存在于整个模块内部作用域的变量名。
+        
+
+        例:
+        class MyDef(object):
+            X =88
+            def setXX(sefl,num):
+                global X
+                X = 99
+        
+        if main=="main()":
+            df = MyDef()
+            df.setXX(123)
+            print(df.X) #输出的是99
+            
+        上面的例子中增加一个global申明，以便在def之内的X能够引用在def之外的x,这次他们有相同的值。
+    最小化全局变量:
+        在默认情况下,函数内部注册的变量名是本地变量，所以如果希望在函数外部对变量进行改变，必须编写额外的代码(global语句)。
+'''
 
