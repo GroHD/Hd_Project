@@ -4,7 +4,7 @@
    Name:HD
 '''
 r'''
-    Python 操作Mysql模块的安装
+    Python 操作Mysql模块的安装  
     linux
             yum install MySQL-python
     window：
@@ -12,7 +12,7 @@ r'''
 '''
 
 r'''
-       引入MySQLdb该模块不支持python3.0,该模块需要在Python2.0下使用
+       引入MySQLdb该模块不支持python3.0,该模块需要在Python2.0下使用  Python3.X 可以使用pymysql 进行数据库操作
 
         import MySQLdb
         conn = MySQLdb.connect(host='127.0.0.1',user='root',passwd='1234',db='mydb')
@@ -42,7 +42,7 @@ r'''
         conn.commit() 事物提交
 '''
 
-#pymysql
+#pymysql Python3.X下进行mysql数据操作
 
 import pymysql
 #打开数据库
