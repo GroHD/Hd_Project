@@ -42,3 +42,43 @@ r'''
         conn.commit() 事物提交
 '''
 
+#pymysql
+
+import pymysql
+#打开数据库
+db = pymysql.connect(host='127.0.0.1',port=3306,user='root',password='123456',database='dbgas',charset='utf8')
+#使用cursor() 方法创建一个游标cursor
+cursor = db.cursor()
+
+#如果执行的是sql插入语句，则需要使用Try来获取错误,因为插入的时候可能会出现错误
+try:
+    sql = '''
+          insert into 用户表
+            '''
+    #cursor.execute(sql)
+    #没有出错执行提交语句
+    #db.commit()#提交数据
+
+    r'''
+        在执行插入语句的时候也可以使用参数
+ '''
+   # cursor.execute('insert into log values(%s,%s,%s)'%('1','2','3')) #这样也可以插入语句
+except:
+    pass
+    #db.rollback()#出错就执行回滚
+
+r'''
+    数据库查询操作
+    python查询mysql使用fetchone()方法获取单挑数据，使用fetchall() 方法获取多条数据
+    fetchone(): 该方法获取下一个查询结果集，结果集是一个对象
+    fetchall(): 接受全部的返回结果行
+    rowcount:这是一个只读属性,返回执行execute()方法影响的行数
+'''
+#例
+cursor.execute('select * from 用户表')
+result = cursor.fetchall()
+for row in result:
+    print(row)
+
+#关闭数据库
+db.close()
