@@ -25,12 +25,14 @@ result.fetchall()  #取出结果
 r'''
 执行orm 映射的sql
 '''
-from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey
+from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 #执行MetaData 后返回一个实力
 metadata = MetaData()
 
 user = Table('TableName',metadata,
-            Column('ID',Integer,primary_key=True), #主键
+            Column('ID',Integer,primary_key=True), #主键  z自增id
             Column('Name',String(20)) #姓名
 
             )
@@ -39,3 +41,85 @@ user = Table('TableName',metadata,
 engine = create_engine("mysql+mysqldb://root:123456//localhost:3306/test?charset=utf8",max_overflow=5,echo=True)
 
 metadata.create_all() #创建表
+
+
+r'''
+#插入数据
+'''
+conn = engine.connect() #拿到游标
+sql = user.insert().values(name='hd') #插入数据
+conn.execute(sql)#执行sql
+conn.close()
+
+r'''
+#删除数据
+'''
+sql = user.delete().where(user.c.ID >1) #删除ID大于1的数据
+conn.execute(sql)#执行sql
+conn.close()
+
+r'''
+#修改数据
+'''
+sql = user.update().where(user.c.ID='1').values(name='nn')
+conn.execute(sql)#执行sql语句
+conn.close()
+
+r'''
+#查找数据
+'''
+sql =select([user.c.ID]) #查询出列表中的ID
+res = conn.execute(sql)
+print(res.fetchall()) #去除结果
+
+#根据条件查询结果
+sql = select[user,]).where(user.c.ID == 1) 
+res = conn.execute(sql)
+print(res.fetchall())
+
+
+r'''
+   不用写sql语句的orm
+'''
+Base = declarative_base() #生成一个SQLORM基类，所有的子类都需要继承该类
+#映射表
+class Host(Base):
+        __tablename__='hosts'
+        id = Column(Integer,primary_key=True,autoincrement=True)
+        hostname = Column(String(64),unique=True,unllable=False)
+        ip_addr = Column(String(48),unique=True,nullable=Fals)
+        port = Column(Integer,default=22)
+
+Base.metadata.create_all(engine)#创建表
+
+def main():
+    SessionCls = sessionmaker(bind=engine)#创建于数据库的会话sess class ，注意这里返回给session的是一个类不是实例
+    session = SessionCls() #创建连接实例
+    #添加数据
+    h1 = Host(hostname='localhost',ip_addr='127.0.0.1')
+    h2 = Host(hostname='ubuntu',ip_addr='192.168.1.55',port=8822)
+    #session.add(h1)
+    #session.add(h2)
+    session.add_all([h1,h2]) #批量执行
+    session.commit()#执行方法
+
+    #查询数据
+    obj = session.query(Host).filter(Host.hostname=='localhost').first() #拿到第一条数据, all() 拿到所有的数据
+    #like查询
+    obj = session.query(Host).filter(Host.hostname.like('%ed%')) #like查询
+    #in 查询
+    obj = session.query(Host).filter(Host.hostname.in_(['ed','he','hh']))#in 查询
+    print(obj.id)
+    #修改数据
+    obj.hostname ='test server'
+    #删除数据
+    session.delete(obj)
+    session.commit()#执行方法
+
+if __name__ == '__main__':
+    main()
+
+r'''
+    多表查询
+'''
+
