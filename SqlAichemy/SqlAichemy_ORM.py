@@ -27,7 +27,7 @@ r'''
 '''
 from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker,relationship
 #执行MetaData 后返回一个实力
 metadata = MetaData()
 
@@ -103,18 +103,43 @@ def main():
     session.add_all([h1,h2]) #批量执行
     session.commit()#执行方法
 
-    #查询数据
+    #查询数据  会返回查询到的数据
     obj = session.query(Host).filter(Host.hostname=='localhost').first() #拿到第一条数据, all() 拿到所有的数据
     #like查询
     obj = session.query(Host).filter(Host.hostname.like('%ed%')) #like查询
     #in 查询
     obj = session.query(Host).filter(Host.hostname.in_(['ed','he','hh']))#in 查询
+    # and和or 查询   需要sqlaichemy 导入and__ 和or_
+    from sqlalchemy import add_,or_
+    obj = session.query(Host).filter(and_(Host.hostname.like('ubuntu%'),Host.port >20)).all() # 查询host表hostname等于ubuntu 并且port 大于20
     print(obj.id)
     #修改数据
     obj.hostname ='test server'
     #删除数据
     session.delete(obj)
     session.commit()#执行方法
+
+    #可以使用order_by(Host.port) 来排序
+
+r'''
+    多对多关联:
+
+'''
+class Parent(Base):
+    __tablename__ ="parent"
+    id = Column(Integer,primary_key=True)
+    name = Column(String(20),unique=True,unllable=False)
+class Child(Base):
+        __tablename__ ='child'
+        id = Column(Integer,primary_key=True)
+        parent_id = Column(Integer,ForeignKey('parent.id'))  #这是父外键
+        parent = relationship('Parent') #关联外键,需要从sqlalichemy.ORM 里导入relationship,写完这句话就可以在外键关联中的表查询中使用children字段来拿到对应数据,括号里的参数是类名
+
+
+obj = Parent().query(Parent.parent_id == 1).all();
+print(obj.parent.name)#拿到外键关联的id
+
+
 
 if __name__ == '__main__':
     main()
