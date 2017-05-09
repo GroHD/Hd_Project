@@ -133,14 +133,26 @@ class Child(Base):
         __tablename__ ='child'
         id = Column(Integer,primary_key=True)
         parent_id = Column(Integer,ForeignKey('parent.id'))  #这是父外键
-        parent = relationship('Parent') #关联外键,需要从sqlalichemy.ORM 里导入relationship,写完这句话就可以在外键关联中的表查询中使用children字段来拿到对应数据,括号里的参数是类名
-
-
-obj = Parent().query(Parent.parent_id == 1).all();
+        parent = relationship('Parent',backref='host_list') #关联外键,需要从sqlalichemy.ORM 里导入relationship,写完这句话就可以在外键关联中的表查询中使用children字段来拿到对应数据,括号里的参数是类名,第二个参数就是反向关联,
+        
+obj = Child().query(Child.parent_id == 1).all(); # 拿到child 节点力的所有数据
 print(obj.parent.name)#拿到外键关联的id
 
+r'''
+ join 查询
+  在sqlalchemy 里导入func模块就可以使用count   sum 这些函数
+'''
+from sqlalchemy import func
 
+objes = session.query(Child,func.count(Child.parent.name),Child.Parent.name).group_by(Child.Parent.name).all()  #查询出当前Parent表中按name字段进行分组计算 
+objs = session.query(Parent,func.count(Parent.name)).join(Child.parent).filter(Child.parent == 1).group_by(Parent.name).all() #进行join查询然后进行分组统计
+objs = session.query(Parent).join(Child.parent).filter(Child.parent == 1).group_by(Child.name).all()  
+r'''
+ 关联查询
+    关联查询需要建立一张中间表,然后再relationship 的时候使用secondary 进行设置中间表
+'''
 
+Parent = relationship('Parent',secondary='ParentToChild',backref='Child') #设置中间表和双向关联
 if __name__ == '__main__':
     main()
 
