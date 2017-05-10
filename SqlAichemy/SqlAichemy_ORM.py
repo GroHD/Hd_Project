@@ -28,17 +28,18 @@ r'''
 from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship
+#mysql+mysqldb”指定了使用 MySQL-Python 来连接，“root”和“123”分别是用户名和密码，“localhost”是数据库的域名，“test”是使用的数据库名（可省略），“charset”指定了连接时使用的字符集（可省略）
+#create_engine() 会返回一个数据库引擎，echo 参数为 True 时，会显示每条执行的 SQL 语句，生产环境下可关闭
+engine = create_engine("mysql+mysqldb://root:123456//localhost:3306/test?charset=utf8",max_overflow=5,echo=True)
 #执行MetaData 后返回一个实力
-metadata = MetaData()
+metadata = MetaData(bind=engine,reflect=True)
 
 user = Table('TableName',metadata,
             Column('ID',Integer,primary_key=True), #主键  z自增id
             Column('Name',String(20)) #姓名
 
             )
-#mysql+mysqldb”指定了使用 MySQL-Python 来连接，“root”和“123”分别是用户名和密码，“localhost”是数据库的域名，“test”是使用的数据库名（可省略），“charset”指定了连接时使用的字符集（可省略）
-#create_engine() 会返回一个数据库引擎，echo 参数为 True 时，会显示每条执行的 SQL 语句，生产环境下可关闭
-engine = create_engine("mysql+mysqldb://root:123456//localhost:3306/test?charset=utf8",max_overflow=5,echo=True)
+
 
 metadata.create_all() #创建表
 
