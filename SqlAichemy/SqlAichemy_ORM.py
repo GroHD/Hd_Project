@@ -147,6 +147,7 @@ from sqlalchemy import func
 
 objes = session.query(Child,func.count(Child.parent.name),Child.Parent.name).group_by(Child.Parent.name).all()  #查询出当前Parent表中按name字段进行分组计算 
 objs = session.query(Parent,func.count(Parent.name)).join(Child.parent).filter(Child.parent == 1).group_by(Parent.name).all() #进行join查询然后进行分组统计
+objs = session.query(Child).join(Parent).filter(Parent == 1).all() #join查询出 Child表中引用的Parent的主键有哪些，filter是where条件
 objs = session.query(Parent).join(Child.parent).filter(Child.parent == 1).group_by(Child.name).all()  
 r'''
  关联查询
