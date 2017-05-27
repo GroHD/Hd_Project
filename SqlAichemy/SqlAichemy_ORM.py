@@ -158,6 +158,13 @@ objs = session.query(Parent).join(Child.parent).filter(Child.parent == 1).group_
 r'''
  关联查询
     关联查询需要建立一张中间表,然后再relationship 的时候使用secondary 进行设置中间表
+    backref 在关系的另一个模型中添加反向引用
+    primaryjoin 明确指定两个模型之间使用的联结条件，只在模棱两可的关系中需要指定
+    lazy    指定如何加载相关记录。有可选值有select(首次访问按需要加载),immediate(源对象加载后就加载)，joined(加载记录,但使用联结)，subquery(立即加载,但使用子查询),noload(永不加载)和dynamic(不加载记录,但提供加载记录的查询)
+    uselist     如果设为false,不使用列表,而使用标量值
+    order_by    指定关系中记录的排序方式
+    secondary   指定多对多关系中关系表的名字
+    
 '''
 
 Parent = relationship('Parent',secondary='ParentToChild',backref='Child') #设置中间表和双向关联
