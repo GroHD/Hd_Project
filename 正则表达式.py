@@ -1,4 +1,4 @@
-ython 中的正则表达式
+python 中的正则表达式
 
 import  re  #引入正则的包
 

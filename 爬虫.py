@@ -3,7 +3,7 @@
 '''
 Name:HD
 '''
-import urllib2,urllib
+import urllib2,urllib.request,urllib.cooklielib
 import cookielib  #Cookie使用
 def LoadUrl():
     #urlopen 接受三个参数 urlopen(url,data,timeout)
