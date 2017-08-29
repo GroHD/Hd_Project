@@ -25,9 +25,9 @@ result.fetchall()  #取出结果
 r'''
 执行orm 映射的sql
 '''
-from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select
+from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select,and_
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker,relationship
+from sqlalchemy.orm import sessionmaker,relationship,session
 #mysql+mysqldb”指定了使用 MySQL-Python 来连接，“root”和“123”分别是用户名和密码，“localhost”是数据库的域名，“test”是使用的数据库名（可省略），“charset”指定了连接时使用的字符集（可省略）
 #create_engine() 会返回一个数据库引擎，echo 参数为 True 时，会显示每条执行的 SQL 语句，生产环境下可关闭
 engine = create_engine("mysql+mysqldb://root:123456//localhost:3306/test?charset=utf8",max_overflow=5,echo=True)
@@ -62,7 +62,7 @@ conn.close()
 r'''
 #修改数据
 '''
-sql = user.update().where(user.c.ID='1').values(name='nn')
+sql = user.update().where(user.c.ID=='1').values(name='nn')
 conn.execute(sql)#执行sql语句
 conn.close()
 
@@ -74,7 +74,7 @@ res = conn.execute(sql)
 print(res.fetchall()) #去除结果
 
 #根据条件查询结果
-sql = select[user,]).where(user.c.ID == 1) 
+sql = select([user,]).where(user.c.ID == 1)
 res = conn.execute(sql)
 print(res.fetchall())
 
@@ -88,7 +88,7 @@ class Host(Base):
         __tablename__='hosts'
         id = Column(Integer,primary_key=True,autoincrement=True)
         hostname = Column(String(64),unique=True,unllable=False)
-        ip_addr = Column(String(48),unique=True,nullable=Fals)
+        ip_addr = Column(String(48),unique=True,nullable=False)
         port = Column(Integer,default=22)
 
 Base.metadata.create_all(engine)#创建表
