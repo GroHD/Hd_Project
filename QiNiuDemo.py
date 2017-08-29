@@ -7,8 +7,8 @@ Name:HD
 from qiniu import Auth,put_file,etag
 import time
 #设置AcKey和SeKey
-AccessKey = '6nHz6YBV6yhtIgHMO5zkZY6eSMUliagNbmAcYz5A'
-SecretKey = 'q_B-04JYgEHt98pJtxBC3kcPLMy1THRC2H7rlwF7'
+AccessKey = '***********************'
+SecretKey = 'q_B-*******************'
 #设置上传文件
 class UpLoad(object):
     def __init__(self):

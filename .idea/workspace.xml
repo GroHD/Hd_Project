@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6cae28fa-1ab4-4afd-8e39-0a96815fb6bc" name="Default" comment="添加">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FlaskDemo.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PaChong.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/QiNiuDemo.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/emailDemo.py" />
+    <list default="true" id="6cae28fa-1ab4-4afd-8e39-0a96815fb6bc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SqlAichemy/SqlAichemy_ORM.py" afterPath="$PROJECT_DIR$/SqlAichemy/SqlAichemy_ORM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/正则表达式.py" afterPath="$PROJECT_DIR$/正则表达式.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QiNiuDemo.py" afterPath="$PROJECT_DIR$/QiNiuDemo.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,8 +44,8 @@
       <file leaf-file-name="QiNiuDemo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/QiNiuDemo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="546">
+              <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -127,6 +122,7 @@
         <option value="$PROJECT_DIR$/RebbitMQ/RebbitMQ.py" />
         <option value="$PROJECT_DIR$/SqlAichemy/SqlAichemy_ORM.py" />
         <option value="$PROJECT_DIR$/正则表达式.py" />
+        <option value="$PROJECT_DIR$/QiNiuDemo.py" />
       </list>
     </option>
   </component>
@@ -394,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503975419521</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加新文件">
+      <created>1503976853639</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1503976853639</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -451,7 +454,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="RebbitMQ" />
     <MESSAGE value="修改错误" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改错误" />
+    <MESSAGE value="添加新文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加新文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -543,8 +547,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/QiNiuDemo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="546">
+          <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
           <folding />
         </state>
       </provider>
