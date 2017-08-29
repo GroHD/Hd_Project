@@ -25,7 +25,7 @@ result.fetchall()  #取出结果
 r'''
 执行orm 映射的sql
 '''
-from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select,and_
+from sqlalchemy import create_engine,Table,Column,Integer,String,MetaData,ForeignKey,select,and_,UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker,relationship,session
 #mysql+mysqldb”指定了使用 MySQL-Python 来连接，“root”和“123”分别是用户名和密码，“localhost”是数据库的域名，“test”是使用的数据库名（可省略），“charset”指定了连接时使用的字符集（可省略）
@@ -134,6 +134,7 @@ class Child(Base):
         __tablename__ ='child'
         id = Column(Integer,primary_key=True)
         parent_id = Column(Integer,ForeignKey('parent.id'))  #这是父外键
+        __table_args__ = (UniqueConstraint('parent_id','id',__tablename__='Child_parent_id_uc')) #联合唯一,
         parent = relationship('Parent',backref='host_list') #关联外键,需要从sqlalichemy.ORM 里导入relationship,写完这句话就可以在外键关联中的表查询中使用children字段来拿到对应数据,括号里的参数是类名,第二个参数就是反向关联,
         
 obj = Child().query(Child.parent_id == 1).all(); # 拿到child 节点力的所有数据

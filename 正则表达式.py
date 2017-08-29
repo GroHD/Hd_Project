@@ -1,3 +1,5 @@
+r'''
+
 python 中的正则表达式
 
 import  re  #引入正则的包
@@ -45,3 +47,4 @@ reMatch = "<div class=\"content\">*+</div>"
 m = re.findall('<div class="content">[.|\n]*<span>(.*)</span>[.|\n]*</div>',strNum)
 for i in m:
     print(i)
+'''
