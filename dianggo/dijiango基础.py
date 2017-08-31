@@ -34,9 +34,19 @@ pip install djiango
                     #制定匹配名称的正则表达式
                     url(r'articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$',views.year_archive)#在正则表达式里的指定名称(尖括号里的名称), 那么在试图里的时候必须使用这样的名称,否则报错
                     #把请求分发到对应的app里,然后再app里进行配置url
-                    url(r'^payment/',include(app01.urls))#所有以payment的请求都跳转到 app01下的Urls进行处理url请求,然后需要在app01文件夹下创建urls 这个路由请求,app01里的urls写法和当前文件写法是一样的 
+                    url(r'^payment/',include(app01.urls))#所有以payment的请求都跳转到 app01下的Urls进行处理url请求,然后需要在app01文件夹下创建urls 这个路由请求,app01里的urls写法和当前文件写法是一样的
+                     #向试图里传参数
+                    url(r'^payment/([0-9]{4}/$)',view.FunctionName,{'file_type','json'})#第三个参数是服务器写的,可以向view方法里的file_type参数传入该值,只要访问该Url都会携带该参数。第三个参数可以是动态的传入。
             ]
-        #每次匹配都会从列表里挨个进行匹配,匹配到之后就不会向后继续匹配          
+        #每次匹配都会从列表里挨个进行匹配,匹配到之后就不会向后继续匹配
+                  
+                  
+                  
+     Djiango GET和POST提交:
+                在view里可以使用request.method=='GET or POST' 来判断提交方式是什么
+                request.GET.get('user')  使用GET获取数据
+                
+                
             
              
             
