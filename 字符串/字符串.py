@@ -275,3 +275,155 @@ import struct
 
 with open('data.bin','wb') as file:
     data = struct.pack()
+
+r''''
+    string.h里的函数
+       string模块里的两个函数:
+            1.capwords()
+                该函数的作用是将一个字符串中所有单词的首字母大写
+                    例:
+                        import string
+                        s = ' The quick brown for'
+                        print(string.capwords(s))
+                        输出:
+                            The Quick Brown For
+            2.maketrans()
+                该函数将创建转换表，可以用来结合translate()方法将一组字符串修改为另一组字符,这种做法比反复调用replace()更为高效
+                    例:
+                        import string
+                        leet = string.maketrans('abegiloprstz','463611092572')
+                        s = 'Teh quick brown fox jumped over the lazy dog.'
+                        print(s)
+                        输出:
+                            Th3 qu1ck 620wn f0x jum93d 0v32 7h3 142y d06.
+                        在上面的李子中,一些字幕被替换为相应的数字
+    string模块里的模板:
+        字符串模板已经作为python2.4中的一部分,并得到扩展,成为替代内置拼接语法的一种候选方法。
+        在使用string.Template拼接时,可以在变量名前面加上前缀$(如$var)来标识变量,或如果需要与两侧的文本框区分,还可以用大括号将变量括起来（如${var}）
+            例:
+                import string
+                varlues = {'var':'food'}
+                t = string.Template("""
+                    Variable    :$avr
+                    Escape      :$$
+                    Variable in text :${var}iable
+                                    """)
+                print('TEMPLATE:',t.substitute(values))
+                 输出的结果:
+                    TEMPLATE:
+                    Variable    :foo
+                    Escape      :$
+                    Variable in text    :fooiable
+                    
+                s = """
+                    Variable    :%(var)%
+                    Escape      :%%
+                    Variable in text    :%(var)%iable
+                """
+                print('INTERPOLATION:'s%values)
+                输出结果:
+                    INTERPOLATION:
+                        Variable    :foo
+                        Escape      :%
+                        Bariable in text : fooiable
+                在上面的两种情况下,触发器字符($或%)都要写两次来完成转义
+                
+            模板与标准字符串拼接的一个重要的区别,既模板不考虑参数类型。值会转换为字符串，再将字符串插入到结果中。
+            在模板中如果value中没有对应的变量名值得时候,substitute()方法会产生一个KeyError的错误。不过safe_substitute()方法不会抛出这个错误,它将错误捕获，并在文本中保留变量的表达式
+            
+        高级模板:
+            高级模板是可以在string.Template的默认语法,为此要调整它在模板中查找变量名所使用的正则表达式,一种简单的做法就是修改delimiter和idpattern类属性
+                例:
+                    import string
+                    template_text="""
+                                Delimiter :%%
+                                Replaced  :%with_underscore
+                                Ignored   :%notunderscored
+                                  """
+                    d ={
+                        'with_undersocre':'replaced',#改变定界符
+                        'notunderscored':'not replaced'  #改变替换规则
+                        }
+                    class MtTemplate(string.Template):
+                        delimiter ='%'
+                        idpattern ='[a-z]+_[a-z]+'
+                    t = MyTemplate(template_text)
+                    print(t.safe_substitute(d))
+                在上面的例子中,替换规则已经改变，定界符是%而不是$,另外变量名必须包含一条下划线。模式%notunderscored未得到替换,因为其中不包含下划线字符
+                上面的打印结果:
+                    modified ID pattern:
+                        Delimiter:%
+                        Replaced : replaced
+                        Ignored  : %notunderscored
+                要完成更负责的修改,可以覆盖pattern属性,定义一个全新的正则表达式。他提供的模式必须包含4个命名组，分别对应转移定界符，命名变量，用大括号括住的变量名，以及不和的定界符模式。
+                    import
+                    t = string.Template('$var')
+                    print(t.pattern.pattern)
+                    t.pattern 是一个已编译的正则表达式,不过可以通过其pattern属性得到原来的字符串表示
+                 下面修改自己的一个例:
+                    import re
+                    import string
+                    class MtTemplate(string.Template):
+                        delimiter="$" #这里也可以使用自定义的定界符 {{.}},$,%,^,&,@等等都可以
+                        pattern="""
+                                \$(?:
+                                    (?p<escaped>\$)|
+                                    (?p<named>[_a-z][_a-z0-9]*)$|
+                                    {(?p<braced>[_a-z][_a-z0-9]*)}$|
+                                    (?p<invalid>)
+                                    )
+                                """
+                        t = MyTemplate("""
+                                        {{
+                                        $var$
+                                        """)
+                        print('MATCHED:',t.pattern.findall(t.template))
+                        print('SUBSTITUTED:',t.safe_substitute(var='replacement'))
+                        named和braced模式必须单独提供,尽管它们实际上是一样的运行这个例子程序会生成一下结果:
+                            MATCHED:[('$','','',''),('','var','',,'')]
+                            SUBSTITUTED:
+                                {{
+                                    replacement
+        正则表达式:
+            查找文本中的模式:
+                re催常见的用法就是搜索文本中的模式。search()函数取模式和要扫描的文本作为输入，如果找到这个模式则返回一个Match对象。如果为找到模式，search()将返回None.
+                每个Match对象包含有关匹配性质的信息，包括元输入字符串，使用的正则表达式，以及模式在原字符串中出现的位置
+                例：
+                    import re
+                    pattern = 'this'
+                    text = 'Does this text match the pattern?'
+                    math = re.search(pattern,text)
+                    s = match.start()
+                    e = match.end()
+                    print('Found "%s"\n in "%s"\nfrom %d to %d ("%s")'%((match.re.pattern,match.string,s,e,text[s:e]))
+                    输出结果是:
+                        Found "this"
+                        in "Does this text match the pattern?"
+                        from 5 to 9 ("this")
+                    start()和end()方法可以给出字符串中的相应碎银，指示与模式匹配的文本在字符串中出现的位置。
+            多重匹配：
+                findall()函数会返回输入中与模式匹配而不重叠的所有子串
+                例:
+                    import re
+                    text='abbaaaabbbbbaaaa'
+                    pattern='ab'
+                    for match in re.findall(pattren,text):
+                        print('found"%s"'%(match))
+                    这个输入字符串有两个sb子串
+                        found 'ab'
+                        found 'ab'
+                    finditer()函数会返回一个迭代器,它将生成Match实例，而不是Findall()返回字符串
+                    import re
+                    text = 'abbbbabbbbbaaa'
+                    pattern='ab'
+                    for match in re.finditer(pattern,text):
+                        s = match.start()
+                        e - match.end()
+                        prin("found"%s" at %d:%d"%(text[s:e],s,e))
+                    这个例子找到ab的两次出现，Match实例显示出它们在原输入字符串中的位置。
+                    Found "at" at 0:2
+                    Found "at" at 5:7
+        
+                    
+                    
+'''
