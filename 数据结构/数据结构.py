@@ -110,5 +110,69 @@ collections ----   容器数据类型
                     print(dl.popleft()) #从左边开始删除元素
                 except IndexError:
                     break
+    由于双向队列是线程安全的,所以甚至可以在不同线程中同时从两端利用队列的内容
+    
+namedtuple:
+        标准tuple使用数值索引来访问成员，因此对于简单用途来说,tuple是很方便的容器,
+        另一方面,使用tuple时需要记住对应各个值要使用那个索引,这可能会导致错误,
+        特别是当tuple有大量字段,而且元祖的构造和使用相距很远时,
+        对于各个成员,namedtuple除了指定数值索引外，还会指定名字
+    定义:
+        namedtuple实例与常规元祖在内存使用方面同样高效，因为他们没有各实例的字典。
+        例:
+            Person = collections.namedtuple('Person','name age gender')#  参数第一个参数是类型名字,第二个参数就是实例化里的参数
+            #创建实例化
+            bob = Person(name='bob',age=22,gender='male')
+            #创建好之后就可以使用bob.name  来访问该变量的值
+            jane = Person(name='jane',age=22,gender='female')
+        
+    非法字段名:
+        如果字段名重复或与python关键字冲突,就是非法字段名，在解析字段名时,非法值会导致ValueError异常
+        
+        如果创建一个namedtuple时要基于在程序控制之外的值，就要将rename选项设置为True,从而对非法字段重命名。
+        with_class = collections.namedtuple('Person','name,class,age,gender',rename=True)#第三个参数就是设置对非法字段名重命名。
+        
+        two_ages = colleactions.namedtuple('Person','name,age,gender,age',rename=True)#重复字段名
+        
+        重命名的字段的新名字取决于它在tuple中的索引,所以名为class的字段会变成_1,重复的age字段则变成_3 
+        
+OrderedDict
+        OrderedDict是一个字典类,可以记住其内容增加的顺序
+        dic = []
+        dic['a'] = 'A'
+        dic['b'] = 'B'
+        dic['c'] = 'C'
+        for k,v in dic.items():
+            print('dic:'k,v)
+        odic = collections.OrderedDict()
+        odic['a'] = 'A'
+        odic['b'] = 'B'
+        odic['c' = 'C'
+        for k,v in odic.items():
+            print('odic:'k,v)
+        常规的dict并不能跟踪插入顺序,迭代处理时会根据键在散列表中存储的顺序来生成值。在OrderedDict中则相反,它会记住元素插入的顺序，并在创建迭代器时使用这个顺序。
+        上面会输出:
+            dic:a A
+            dic:c C
+            dic b B
+            
+            odic:a A
+            odic:b B
+            odic:c C
+            
+        常规的dict在检查相等性时会查看其内容，而OrderedDict还会考虑元素增加的顺序。如果顺序不同就不相等
+        
+    array ----固定类型数据序列
+            array模块定义了一个序列数据结构,看起来与list非常相似，只不过所有的成员都必须相同的基本类型。可以参考array的标准库文档全面了解目前支持的所有类型。
+        初始化:
+            array实例化时可以提供一个参数来描述允许那种数据类型,还可以有一个初始的数据序列存储在数组中。
+                例
+                    s = 'this is the array'
+                    a = array.array('c',s)
+                    
+    
+        
+        
+    
         
 '''
