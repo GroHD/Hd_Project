@@ -34,14 +34,18 @@ while True:
         Socket常用语法:
             Socket Families(地址簇)
                 soekct.AF_UNIX  unix本机进程间通信
-                socket.AF_INET IPV4
-                socket.AF_INET6 IPV6
+                socket.AF_INET IPV4   服务器之间网络通信
+                socket.AF_INET6 IPV6  
              Socket Types  Socket 类型
                 socket.SOCK_STREAM  tcp
                 socket.SOCK_DGRAM upd
                 socket.SOCK_RAW  原始套接字,普通的套接字无法处理ICMP,IGMP等网络报文,而SOCK_RAW 则可以,
-                                 其次,SOCK_RAW也可以处理特殊的IPv4报文
-                socket.SOCK_RDM  #是一种可靠的UDP形式,既保证交付数据,但是不保证顺序,SOCK_RDM用来提供对原始协议的低级访问。
+                                 其次,SOCK_RAW也可以处理特殊的IPv4报文，此外，利用原始套接字，通过IP_HDRINCL套接字选项可以构造用户IP头
+                                 
+                socket.SOCK_RDM  #是一种可靠的UDP形式,既保证交付数据,但是不保证顺序,SOCK_RDM用来提供对原始协议的低级访问，
+                                  在需要执行某些特殊操作时，如发送ICMP报文。
+                socket.SOCK_SEQPACKET #可靠的连续数据包服务，已很少使用
+                
 
         socket 方法：
             socket.soekct(famil=FA_INET,type=SOCK_STREAM,proto =0,fileno=None) #创建方法的时候默认的参数，ip4 和tcp服务
@@ -64,9 +68,4 @@ while True:
             sk.getsockname() 返回桃子姐自己的地址,通常是一个元祖(ipaddr,port)
             sk.fileno() 套接字的文件描述
             sk.sendfile(file,offset=0,count=None) 发送文件,该方法是新版本里才有的。似乎在目前版本里无用
-
-
-
-
-
     '''
