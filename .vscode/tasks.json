@@ -6,7 +6,7 @@
             {
                 "taskName": "python",
                 "type": "shell",
-                "command": "C:/Python/Python36-32/python.exe"
+                "command": "C:/Python/Python35/python.exe"
             }
         ]
 }
