@@ -6,7 +6,7 @@
             {
                 "taskName": "python",
                 "type": "shell",
-                "command": "C:/Python/Python35/python.exe"
+                "command": "C:/Python/Python36-32/python.exe"   //这里需要注意一下，在家里就需要\Python35，在单位需要Python36-32
             }
         ]
 }
