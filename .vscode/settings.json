@@ -1,5 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "python.linting.enabled":false,
-    "editor.fontSize": 16
+    "editor.fontSize": 16,
+    "python.pythonPath": "C:/Python/Python36-32/python.exe",
+    "python.formatting.provider": "yapf"
 }
