@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6cae28fa-1ab4-4afd-8e39-0a96815fb6bc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Socket/Socket.py" afterPath="$PROJECT_DIR$/Socket/Socket.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Socket/socket多线程.py" afterPath="$PROJECT_DIR$/Socket/socket多线程.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -459,7 +457,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508294316644</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="SOCKET添加介绍">
+      <created>1508913651149</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1508913651149</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
