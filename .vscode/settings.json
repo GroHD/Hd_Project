@@ -2,6 +2,7 @@
 {
     "python.linting.enabled":false,
     "editor.fontSize": 16,
-    "python.pythonPath": "C:\\PythonObject\\TwoPythonEnv\\Scripts",
+   // "python.pythonPath": "C:\\PythonObject\\TwoPythonEnv\\Scripts", //单位需要的
+   "python.pythonPath": "E:\\Virtul_ENV\\Two_Py_Env\\Scripts",//家里需要的
     "python.formatting.provider": "yapf"
 }

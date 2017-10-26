@@ -6,7 +6,8 @@
             {
                 "taskName": "python",
                 "type": "shell",
-                "command": "C:\\PythonObject\\TwoPythonEnv\\Scripts"
+               // "command": "C:\\PythonObject\\TwoPythonEnv\\Scripts"  //单位需要的
+               "command": "E:\\Virtul_ENV\\Two_Py_Env\\Scripts" //家里需要的
             }
         ]
 }
