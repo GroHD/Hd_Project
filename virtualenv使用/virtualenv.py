@@ -15,5 +15,6 @@ r'''
     退出沙盒:
         deactivate
         
+    http://www.linuxidc.com/Linux/2017-06/145169.htm 配置问题
 
 '''
