@@ -6,11 +6,7 @@
             {
                 "taskName": "python",
                 "type": "shell",
-<<<<<<< HEAD
-                "command": "C:/Python/Python36-32/python.exe"   //这里需要注意一下，在家里就需要\Python35，在单位需要Python36-32
-=======
                 "command": "C:\\PythonObject\\TwoPythonEnv\\Scripts"
->>>>>>> 86318cade2b87cb86f39e05b54c047f0294e58cb
             }
         ]
 }
