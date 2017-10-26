@@ -6,7 +6,7 @@
             {
                 "taskName": "python",
                 "type": "shell",
-                "command": "C:/Python/Python35/python.exe"
+                "command": "C:\\PythonObject\\TwoPythonEnv\\Scripts"
             }
         ]
 }
