@@ -2,6 +2,6 @@
 {
     "python.linting.enabled":false,
     "editor.fontSize": 16,
-    "python.pythonPath": "C:/Python/Python36-32/python.exe",
+    "python.pythonPath": "C:\\PythonObject\\TwoPythonEnv\\Scripts",
     "python.formatting.provider": "yapf"
 }
