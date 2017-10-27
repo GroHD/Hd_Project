@@ -32,10 +32,10 @@ r'''
         b = iter(L) is L
         print(b) #打印结果False
         L.__next__()#这样会报错,说List 对象没有__next__ 属性
-        
+        L = (x **2 for x in range(100)) #生成一个迭代器
         I = iter(L) #把list 转换成迭代器 并返回一个新的对象
         I.__next__()  #返回的结果是1
-        netx(I) #返回的结果是2
+        netx(I) #返回的结果是2 next(I) 等价于上面的I.__next()__
 '''
 
 r'''

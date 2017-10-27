@@ -147,7 +147,7 @@ OrderedDict
         odic = collections.OrderedDict()
         odic['a'] = 'A'
         odic['b'] = 'B'
-        odic['c' = 'C'
+        odic['c'] = 'C'
         for k,v in odic.items():
             print('odic:'k,v)
         常规的dict并不能跟踪插入顺序,迭代处理时会根据键在散列表中存储的顺序来生成值。在OrderedDict中则相反,它会记住元素插入的顺序，并在创建迭代器时使用这个顺序。

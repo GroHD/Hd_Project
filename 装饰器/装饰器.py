@@ -145,7 +145,6 @@ decorator 还会改变函数的__doc)__等其他属性。
 #例:
 def Writer(txt):
     def war_decorator(func):
-
         def warpper(*agrs,**kwargs):
             print(txt)
             return func(*agrs,**kwargs)
