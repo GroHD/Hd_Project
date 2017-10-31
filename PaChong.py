@@ -5,7 +5,31 @@ Name:HD
 '''
 import urllib2,urllib
 import cookielib  #Cookie使用
+r'''
+    爬虫(spider) 网络蜘蛛，用于数据的网络上数据的采集和抓取，也有人称爬虫为数据采集机器人
+    学习爬虫的过程中学习两个阶段
 
+    第一阶段:
+        使用python的模块对一些不需要登陆的网站数据进行采集和下载
+    第二阶段:
+        模拟登陆，通过分析tcp/ip(http)协议对有登陆的网站模拟浏览器登录
+    爬虫需要的框架:
+        scrapy框架
+    
+    需要的包:
+        urllib
+        urllib2
+        requests
+        httplib
+        cookielib
+    数据需要的包:
+        re 
+        lxml  xpath
+        beautifulsoup   bs4
+    数据存储:
+        mysql 
+        file
+'''
 def LoadUrl():
     #urlopen 接受三个参数 urlopen(url,data,timeout)
     r'''

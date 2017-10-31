@@ -102,7 +102,7 @@ if __name__ == '__main__':
 r'''
     start 启动线程
     join 等待线程结束,这个是阻塞线程
-    setDaemon(True Or False)  守护线程,当守护线程退出的时候,其它线程也会结束运行
+    setDaemon(True Or False)  守护线程,当守护线程退出的时候,其它线程也会结束运行，这个必须在start 之前设置该方法
 '''
 
 '''
